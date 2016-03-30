@@ -14,6 +14,7 @@ namespace RegularExpressionParser
         {
             _dic = new Dictionary<char, IParser>();
             _dic.Add('*', StarParser.Empty);
+            _dic.Add('+', PositiveParser.Empty);
         }
 
         public static void Register(char c, IParser parser)

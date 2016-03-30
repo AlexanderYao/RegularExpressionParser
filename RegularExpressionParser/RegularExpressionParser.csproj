@@ -39,12 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Imp\PositiveParser.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="MatchStatus.cs" />
     <Compile Include="RegExp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegExpParser.cs" />
-    <Compile Include="StarParser.cs" />
+    <Compile Include="Imp\StarParser.cs" />
     <Compile Include="StateMachine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

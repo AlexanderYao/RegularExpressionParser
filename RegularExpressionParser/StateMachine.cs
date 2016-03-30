@@ -26,11 +26,13 @@ namespace RegularExpressionParser
 
         internal bool IsMatch(string input)
         {
+            int charIndex = 0;
             int parserIndex = 0;
 
-            for (int i = 0; i < input.Length; i++)
+            //先遍历字符串
+            for (; charIndex < input.Length; charIndex++)
             {
-                char c = input[i];
+                char c = input[charIndex];
 
                 while (true)
                 {
@@ -39,7 +41,7 @@ namespace RegularExpressionParser
                         return false;
                     }
 
-                    MatchStatus status = _parsers[parserIndex].IsMatch(input, i);
+                    MatchStatus status = _parsers[parserIndex].IsMatch(input, charIndex);
                     
                     if(status == MatchStatus.NotMatch)
                     {
@@ -54,6 +56,19 @@ namespace RegularExpressionParser
                         parserIndex++;
                     }
                 }
+            }
+
+            //再遍历剩下的parser
+            while (parserIndex < _parsers.Count)
+            {
+                MatchStatus status = _parsers[parserIndex].IsMatch(input, charIndex);
+
+                if(status == MatchStatus.NotMatch)
+                {
+                    return false;
+                }
+
+                parserIndex++;
             }
 
             return true;

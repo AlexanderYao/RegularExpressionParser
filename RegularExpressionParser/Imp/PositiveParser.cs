@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace RegularExpressionParser
 {
-    public class StarParser : IParser
+    /// <summary>
+    /// 匹配1、多个字符
+    /// </summary>
+    public class PositiveParser : IParser
     {
         private int _validCount;
 
-        public StarParser(char keyWork)
+        public PositiveParser(char keyWork)
         {
             this.KeyWord = keyWork;
             this._validCount = 0;
@@ -22,35 +25,37 @@ namespace RegularExpressionParser
             private set;
         }
 
-        public static StarParser Empty
+        public static PositiveParser Empty
         {
             get
             {
-                return new StarParser(char.MinValue);
+                return new PositiveParser(char.MinValue);
             }
         }
 
-        /// <summary>
-        /// *不存在NotMatch状态
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
         public MatchStatus IsMatch(string input, int index)
         {
-            if(input[index] == KeyWord)
+            if (index < 0 || index > input.Length)
             {
+                throw new IndexOutOfRangeException();
+            }
+
+            char c = (index == input.Length) ? char.MinValue : input[index];
+
+            if (c == KeyWord)
+            {
+                _validCount++;
                 return MatchStatus.Match;
             }
             else
             {
-                return MatchStatus.Exited;
+                return _validCount > 0 ? MatchStatus.Exited : MatchStatus.NotMatch;
             }
         }
 
         public IParser Clone(char keyWord)
         {
-            return new StarParser(keyWord);
-        }        
+            return new PositiveParser(keyWord);
+        }
     }
 }
