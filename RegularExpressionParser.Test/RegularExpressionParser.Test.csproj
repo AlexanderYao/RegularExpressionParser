@@ -53,6 +53,7 @@
     <Compile Include="TestPositive.cs" />
     <Compile Include="TestStar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestString.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RegularExpressionParser\RegularExpressionParser.csproj">
